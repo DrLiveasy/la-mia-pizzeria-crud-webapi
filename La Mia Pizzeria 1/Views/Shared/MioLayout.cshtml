@@ -20,7 +20,7 @@
     <body class="m-auto bg-light">
         <nav class="navbar navbar-expand-lg bg-dark sticky-top">
             <div class="container-xxl">
-                <a class="navbar-brand text-white" asp-area=" " asp-controller="Pizza" asp-action="Index">
+                <a class="navbar-brand text-white" asp-area=" " asp-controller="Home" asp-action="Index">
                     <img src="https://seeklogo.com/images/P/pizza-logo-42816D88BE-seeklogo.com.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                     La Mia Pizzeria
                 </a>
@@ -58,7 +58,13 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <!-- Importazione di AXIOS nel vostro layout per ogni pagina, in modo che se abbiamo bisogno di una chiamata a delle API possiamo utilizzare questo strumento per fare chiamate in GET; POST; PUT; DELETE tramite JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+
+        @RenderSection("Scripts", required: false)
     </body>
     </html>
 }
@@ -80,9 +86,9 @@ else
             <div class="container-xxl">
                 <a class="navbar-brand text-white" asp-area=" " asp-controller="Home" asp-action="Index">
                     <img src="https://seeklogo.com/images/P/pizza-logo-42816D88BE-seeklogo.com.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                    Menu Pizze
+                    La Mia Pizzeria
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -107,7 +113,14 @@ else
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <!-- Importazione di AXIOS nel vostro layout per ogni pagina, in modo che se abbiamo bisogno di una chiamata a delle API possiamo utilizzare questo strumento per fare chiamate in GET; POST; PUT; DELETE tramite JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+
+        @RenderSection("Scripts", required: false)
     </body>
     </html>
 }

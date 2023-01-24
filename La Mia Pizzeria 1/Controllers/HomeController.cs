@@ -9,58 +9,13 @@ namespace La_Mia_Pizzeria_1.Controllers
     {
         public IActionResult Index()
         {
-
-            using (PizzaContext db = new PizzaContext())
-            {
-                List<Pizza> pizzaList = db.Pizzas.ToList();
-                //List<Pizza> pizzaList = new List<Pizza>();
-
-                return View("Index", pizzaList);
-            }
-
+            return View();
         }
 
-        public IActionResult Dettaglio(int id)
+        public IActionResult Dettaglio()
         {
 
-            /*
-            bool FunzioneDiRicercaPizzaById(Pizza pizza)
-            {
-                return pizza.Id == id;
-            }
-            */
-
-            using (PizzaContext db = new PizzaContext())
-
-            {
-                // LINQ: syntax methos
-                Pizza PizzaTrovata = db.Pizzas
-                    .Where(SingolaPizzaNelDb => SingolaPizzaNelDb.Id == id)
-                    .Include(pizza => pizza.Categoria)
-                    .Include(pizza => pizza.Ingredientis)
-                    .FirstOrDefault();
-
-                // LINQ: query syntax
-                /* Pizza pizzaTrovato =
-                     (from p in db.pizza
-                      where p.Id == id
-                      select p).FirstOrDefault<pizza>();*/
-
-                // SQL QUERY
-                /* Pizza pizzaTrovato =
-                     db.pizzas.FromSql($"SELECT * FROM pizzas WHERE Id = {id}")
-                     .FirstOrDefault<Pizza>(); */
-
-                if (PizzaTrovata != null)
-                {
-                    return View(PizzaTrovata);
-                }
-
-                return NotFound("La pizza con l'id cercato non esiste!");
-
-            }
-
-
+             return View();
 
         }
     }
