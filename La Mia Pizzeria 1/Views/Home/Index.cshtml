@@ -4,15 +4,21 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="mt-3 mb-3">Menu Pizze</h1>
+                <div>
+                    <input id="input_search" type="text" class="form-control" placeholder="Cerca per titolo..." />
+                </div>
             </div>
         </div>
     </div>
-    <div class="row js_no_pizza text-center d-none">
+    <div id="spinner-loader" class="d-flex justify-content-center">
+        <img class="spinner-border" style="width: 3rem; height: 3rem;" role="status" src="https://1.bp.blogspot.com/-CAroinPVLPw/X9GYFpVZ4DI/AAAAAAABcs8/EVBG1MUGq9wj56i-HKNzi5JHpDaERVlxwCNcBGAsYHQ/s509/food_pizza_whole.png" />
+    </div>
+    <div id="contenitore_no_pizze" class="row text-center d-none">
         <div class="col-12">
-            <h3>Al momento non c'</h3>
+            <h3>Pizza non trovata !</h3>
         </div>
     </div>
-    <div class="row js_pizza_table d-none">
+    <div id="contenitore_pizze" class="row d-none">
         <!-- qui verranno mostrati gli elementi -->
     </div>
 </div>
@@ -21,44 +27,60 @@
 
     <script type="text/javascript">
 
-        loadList();
+        loadPizze();
 
-        function loadList() {
+        document.getElementById('input_search').addEventListener('keyup', searchPizzas);
+        function searchPizzas()
+        {
+            let stringaDiRicerca = document.getElementById('input_search').value;
 
-            axios.get('/api/pizzas').then((res) => {
+            loadPizze(stringaDiRicerca);
 
-                console.log('risultato ok', res);
+        }
 
-                if (res.data.length == 0) {
+        function loadPizze(searchString) {
 
-                    document.querySelector('.js_no_pizza').classList.remove('d-none');
-                    document.querySelector('.js_pizza_table').classList.add('d-none');
+            axios.get('/api/pizzas', {
+                params: {
+                    search: searchString
+                }
+            }).then((res) => {
 
-                } else {
+                console.log('risultato ok');
+                console.log(res);
 
-                    document.querySelector('.js_pizza_table').classList.remove('d-none');
-                    document.querySelector('.js_no_pizza').classList.add('d-none');
+                if (res.data.length > 0) {
+                    document.getElementById('contenitore_pizze').classList.remove('d-none')
+                    document.getElementById('contenitore_no_pizze').classList.add('d-none');
 
-                    document.querySelector('.js_pizza_table').innerHTML = '';
+                    document.getElementById('contenitore_pizze').innerHTML = '';
 
                     res.data.forEach(pizza => {
 
                         console.log('pizza', pizza);
 
-                        document.querySelector('.js_pizza_table').innerHTML +=
+                        document.getElementById('contenitore_pizze').innerHTML +=
                             `
-                                           <div class="col-12 col-md-4 p-2">
-                                            <div class="card pizza h-100">
-                                                      <img src="${pizza.foto}" class="card-img-top" alt="${pizza.nome}">
-                                              <div class="card-body">
-                                                <h5 class="card-title">${pizza.nome}</h5>
-                                                <p class="card-text">${pizza.descrezione}</p>
-                                              </div>
-                                            </div>
-                                        </div>
-                                     `;
+                            <div class="col-12 col-md-4 p-2">
+                                <div class="card pizza h-100">
+                                        <img src="${pizza.foto}" class="card-img-top" alt="${pizza.nome}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${pizza.nome}</h5>
+                                    <p class="card-text">${pizza.descrezione}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
                     });
+
+                    
+                } else {
+                    document.getElementById('contenitore_no_pizze').classList.remove('d-none');
+                    document.getElementById('contenitore_pizze').classList.add('d-none');
+
+                    
                 }
+                document.getElementById('spinner-loader').classList.add('d-none');
             }).catch((error) => {
                 console.log(error);
             });

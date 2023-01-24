@@ -3,6 +3,7 @@ using La_Mia_Pizzeria_1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace La_Mia_Pizzeria_1.Controllers
 {
@@ -34,6 +35,24 @@ namespace La_Mia_Pizzeria_1.Controllers
 
             }
 
+
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+
+            using (PizzaContext db = new PizzaContext())
+            {
+                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if (pizza is null)
+                {
+                    return NotFound("La pizza con questo id non è stato trovata!");
+                }
+
+                return Ok(pizza);
+            }
         }
     }
 }
