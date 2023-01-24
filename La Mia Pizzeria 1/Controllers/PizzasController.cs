@@ -11,7 +11,7 @@ namespace La_Mia_Pizzeria_1.Controllers
     public class PizzasController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string? search)
         {
             using (PizzaContext db = new PizzaContext())
             {
@@ -30,8 +30,11 @@ namespace La_Mia_Pizzeria_1.Controllers
                         .Include(pizza => pizza.Categoria).ToList<Pizza>();
                 }
 
+                return Ok(pizzas);
+
             }
 
         }
     }
 }
+
