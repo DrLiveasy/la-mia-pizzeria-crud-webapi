@@ -54,6 +54,30 @@ namespace La_Mia_Pizzeria_1.Controllers
                 return Ok(pizza);
             }
         }
+
+        public IActionResult Dettaglio(int id)
+        {
+
+
+            using (PizzaContext db = new PizzaContext())
+
+            {
+                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+
+
+                if (pizza != null)
+                {
+                    return Ok(pizza);
+                }
+
+                return NotFound("La pizza con l'id cercato non esiste!");
+
+            }
+
+
+
+        }
     }
 }
 
