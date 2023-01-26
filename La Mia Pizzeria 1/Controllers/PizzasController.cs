@@ -44,14 +44,14 @@ namespace La_Mia_Pizzeria_1.Controllers
 
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzas = db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredientis).Include(pizza => pizza.Categoria).FirstOrDefault();
 
-                if (pizza is null)
+                if (pizzas is null)
                 {
                     return NotFound("La pizza con questo id non è stato trovata!");
                 }
 
-                return Ok(pizza);
+                return Ok(pizzas);
             }
         }
 
@@ -62,13 +62,13 @@ namespace La_Mia_Pizzeria_1.Controllers
             using (PizzaContext db = new PizzaContext())
 
             {
-                Pizza pizza = db.Pizzas.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzas = db.Pizzas.Where(pizza => pizza.Id == id).Include(pizza => pizza.Ingredientis).Include(pizza => pizza.Categoria).FirstOrDefault();
 
 
 
-                if (pizza != null)
+                if (pizzas != null)
                 {
-                    return Ok(pizza);
+                    return Ok(pizzas);
                 }
 
                 return NotFound("La pizza con l'id cercato non esiste!");

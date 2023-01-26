@@ -16,6 +16,10 @@
         axios.get(`/api/pizzas/${id}`).then((res) => {
             let pizza = res.data;
             console.log('pizza ricevuta', pizza);
+            ingredientiHtml = "";
+
+            pizza.ingredientis.forEach(ingrediente => { ingredientiHtml += `<p>${ingrediente.name}</p> `; });
+
             document.getElementById('pizza_container').innerHTML +=
                 `
                             <div class="col-12 col-md-4 p-2">
@@ -24,6 +28,9 @@
                                         <div class="card-body">
                                         <h5 class="card-title">${pizza.nome}</h5>
                                         <p class="card-text">${pizza.descrezione}</p>
+                                        <h5>Categoria: </h5> <span>${ pizza.categoria.name }</span>
+                                        <h5>Ingredienti: </h5>
+                                        <p>${ingredientiHtml}</p>
                                         </div>
                                 </div>
                             </div>
